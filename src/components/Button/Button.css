@@ -1,0 +1,22 @@
+.custom-button.MuiButtonBase-root {
+  width: 100%;
+  height: 3rem;
+  margin: auto;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  background: var(--background-end-hex);
+}
+
+.custom-button.MuiButtonBase-root:hover {
+  background: linear-gradient(0.25turn, #3ae3c3, #4e6ce4, #563ff0);
+}
+
+.custom-button.MuiButtonBase-root.Mui-disabled {
+  background: var(--background-gray);
+}
+
+.custom-button.MuiButtonBase-root.topics__button--active {
+  background: var(--background-end-hex);
+  cursor: default;
+}
