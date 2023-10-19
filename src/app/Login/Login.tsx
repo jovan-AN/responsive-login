@@ -51,7 +51,7 @@ export const Login = (): ReactElement => {
       !validateEmail.success
         ? setEmailError(validateEmail.error.issues[0].message)
         : setEmailError("");
-    } 
+    }
     if (email && password) {
       !validatePassword.success
         ? setPasswordError(validatePassword.error.issues[0].message)
@@ -66,17 +66,26 @@ export const Login = (): ReactElement => {
 
   const handleSubmit = () => {
     dispatch(authUser());
-    if (errorMessage) {
+  };
+
+  const redirectToDashboard = useCallback(() => {
+    if (isAuthenticated) {
+      router.push(appRoutes.dashboard);
+      return;
+    }
+  }, [isAuthenticated, router]);
+
+  const handleAuthError = useCallback(() => {
+    if (!isLoading && errorMessage) {
       toast.error(errorMessage);
     }
-  };
+  }, [errorMessage, isLoading]);
 
   useEffect(() => {
     checkIsFormCompleted();
-    if (isAuthenticated) {
-      router.push(appRoutes.dashboard);
-    }
-  }, [checkIsFormCompleted, errorMessage, isAuthenticated, router]);
+    redirectToDashboard();
+    handleAuthError();
+  }, [checkIsFormCompleted, handleAuthError, redirectToDashboard]);
 
   const eyeIcon = (
     <InputAdornment position="end">

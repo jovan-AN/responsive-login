@@ -5,7 +5,7 @@ import { sessionStorageFns } from "@/utils";
 interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
-  errorMessage?: string;
+  errorMessage?: string | null;
   sessionId?: string;
   expiresAt?: string;
 }
@@ -13,7 +13,7 @@ interface AuthState {
 const initialState: AuthState = {
   isAuthenticated: sessionStorageFns.get("isAuthenticated") === "true" || false,
   isLoading: false,
-  errorMessage: "",
+  errorMessage: null,
   sessionId: sessionStorageFns.get("sessionId") || "",
   expiresAt: sessionStorageFns.get("expiresAt") || "",
 };
@@ -34,7 +34,7 @@ const authSlice = createSlice({
     builder.addCase(authUser.fulfilled, (state, { payload }) => {
       state.isAuthenticated = true;
       state.isLoading = false;
-      state.errorMessage = "";
+      state.errorMessage = null;
       state.sessionId = payload.guest_session_id;
       state.expiresAt = payload.expires_at;
     });
